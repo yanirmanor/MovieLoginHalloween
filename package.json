@@ -11,7 +11,9 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-query": "^3.13.9",
+    "react-rainbow-components": "^1.25.0",
     "recharts": "^2.0.9",
+    "rxjs": "^6.6.7",
     "universal-cookie": "^4.0.4",
     "xstate": "^4.17.1"
   },
