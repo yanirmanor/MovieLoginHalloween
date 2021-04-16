@@ -4,6 +4,7 @@ import { authMachine } from "./machines/auth";
 import "./App.css";
 import { Login } from "./components/login";
 import { Header } from "./components/header";
+import { Tabs } from "./components/tabs";
 
 function App() {
   const [state, send] = useMachine(authMachine);
@@ -12,6 +13,8 @@ function App() {
     console.log("state", state.value);
     console.log("context", state.context);
   }, [state]);
+
+  const [view, setView] = useState("graph");
 
   if (state.matches("logout")) {
     return (
@@ -24,6 +27,8 @@ function App() {
   return (
     <>
       <Header send={send} />
+      <Tabs setView={setView} view={view} />
+      {view === "graph" ? <div>chart</div> : <div>orders</div>}
     </>
   );
 }
