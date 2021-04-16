@@ -13,12 +13,6 @@ const queryClient = new QueryClient();
 
 function App() {
   const [state, send] = useMachine(authMachine);
-
-  useEffect(() => {
-    console.log("state", state.value);
-    console.log("context", state.context);
-  }, [state]);
-
   const [view, setView] = useState("graph");
 
   if (state.matches("logout")) {

@@ -13,7 +13,6 @@ const fetchOrders = async (accessToken, page, searchProduct) => {
 };
 
 export function useProdouctQuery(accessToken, page, search) {
-  console.log(page, search);
   return useQuery(
     ["orders", page, search],
     () => fetchOrders(accessToken, page, search),

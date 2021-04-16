@@ -14,9 +14,7 @@ export const Orders = ({ accessToken }) => {
     page,
     searchQuery
   );
-  console.log("data", data);
   const totalPages = data?.total / data?.orders.length;
-  console.log("totalPages", totalPages);
 
   const handleChange = (event) => {
     setSearchInput(event.target.value);
