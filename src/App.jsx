@@ -3,6 +3,7 @@ import { useMachine } from "@xstate/react";
 import { authMachine } from "./machines/auth";
 import "./App.css";
 import { Login } from "./components/login";
+import { Header } from "./components/header";
 
 function App() {
   const [state, send] = useMachine(authMachine);
@@ -21,14 +22,9 @@ function App() {
   }
 
   return (
-    <div>
-      <button className="m-5" onClick={() => send("LOGIN")}>
-        login
-      </button>
-      <button className="m-5" onClick={() => send("LOGOUT")}>
-        logout
-      </button>
-    </div>
+    <>
+      <Header send={send} />
+    </>
   );
 }
 
