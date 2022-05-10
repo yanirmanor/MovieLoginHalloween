@@ -18,6 +18,8 @@ export function useProdouctQuery(accessToken, page, search) {
     () => fetchOrders(accessToken, page, search),
     {
       keepPreviousData: true,
+      staleTime: 10000,
+      cacheTime: 10,
     }
   );
 }

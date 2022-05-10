@@ -13,10 +13,10 @@ export const Login = ({ send }) => {
   };
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { name, value } = e.target;
     setLoginFrm((prevState) => ({
       ...prevState,
-      [id]: value,
+      [name]: value,
     }));
   };
 
@@ -44,6 +44,7 @@ export const Login = ({ send }) => {
           <input
             className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
             type="text"
+            name="username"
             placeholder="freddy"
             value={loginFrm.username}
             onChange={handleChange}
@@ -58,6 +59,7 @@ export const Login = ({ send }) => {
           <input
             className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
             type="password"
+            name="password"
             placeholder="Enter your password"
             value={loginFrm.password}
             onChange={handleChange}

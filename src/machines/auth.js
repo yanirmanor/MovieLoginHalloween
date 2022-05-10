@@ -28,29 +28,38 @@ const getCookie = () => {
 };
 
 const fetchUser = async ({ username, password }) => {
-  const res = await fetch("https://freddy.codesubmit.io/login", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  });
-  const tokens = await res.json();
-  createRefreshTokenCookie(tokens.refresh_token);
-  return tokens;
+  try {
+    const res = await fetch("https://freddy.codesubmit.io/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    const tokens = await res.json();
+    if (res.status !== 200) {
+      throw new Error(tokens.msg);
+    }
+    createRefreshTokenCookie(tokens.refresh_token);
+    return tokens;
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 const refreshYourToken = async () => {
-  const refreshToken = getCookie();
-  const res = await fetch("https://freddy.codesubmit.io/refresh", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${refreshToken}`,
-    },
-  });
+  try {
+    const refreshToken = getCookie();
+    const res = await fetch("https://freddy.codesubmit.io/refresh", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${refreshToken}` },
+    });
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export const authMachine = Machine(
@@ -117,11 +126,12 @@ export const authMachine = Machine(
     guards: {
       isRefreshExpired: (context, event) => {
         const isCookieAlive = getCookie();
-        return isCookieAlive === undefined;
+        return isCookieAlive === undefined || isCookieAlive === "undefined";
       },
     },
     actions: {
       clearTokens: assign((context) => {
+        clearCookie();
         return {
           accessToken: "",
           refreshToken: "",

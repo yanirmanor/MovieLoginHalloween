@@ -9,7 +9,13 @@ import { Tabs } from "./components/tabs";
 import { Dashboard } from "./components/dashboard";
 import { Orders } from "./components/orders";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   const [state, send] = useMachine(authMachine);
