@@ -14,6 +14,11 @@ export const Orders = ({ accessToken }) => {
     page,
     searchQuery
   );
+
+  if (isError) {
+    return <div>Opps error...</div>;
+  }
+
   const totalPages = data?.total / data?.orders.length;
 
   const handleChange = (event) => {
@@ -32,7 +37,7 @@ export const Orders = ({ accessToken }) => {
   }, []);
 
   const ProductImg = ({ value }) => {
-    return <img src={value} alt="img" />;
+    return <img src={value} alt="img" loading="lazy" decoding="async" />;
   };
 
   const CreateDate = ({ value }) => {
@@ -41,9 +46,6 @@ export const Orders = ({ accessToken }) => {
     return <div>{dateFormat}</div>;
   };
 
-  if (isError) {
-    return <div>Opps error...</div>;
-  }
   return (
     <div className="relative">
       <div className="flex items-center justify-center flex-wrap bg-gray-200 p-6">

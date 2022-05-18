@@ -16,7 +16,8 @@ const fetchDashboard = async (accessToken) => {
 
 export function useDashboardQuery(accessToken) {
   return useQuery("dashboard", () => fetchDashboard(accessToken), {
-    staleTime: 10000,
-    cacheTime: 10,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   });
 }
